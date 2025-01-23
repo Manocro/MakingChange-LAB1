@@ -37,6 +37,10 @@ public class Purse {
                 .sum();
     }
 
+    public Map<Denomination, Integer> getCash() {
+        return new HashMap<>(cash);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Purse contents:\n");
