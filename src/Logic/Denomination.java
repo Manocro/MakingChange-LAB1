@@ -1,3 +1,4 @@
+package Logic;
 
 public record Denomination(String name, double amt, String form, String img) {
     //PREDEFINED DENOMINATIONS
@@ -11,11 +12,11 @@ public record Denomination(String name, double amt, String form, String img) {
     //COINS
     public static final Denomination QUARTER = new Denomination("Quarter", 0.25, "coin", "quarter.png");
     public static final Denomination DIME = new Denomination("Dime", 0.10, "coin", "dime.png");
-    public static final Denomination NICKLE = new Denomination("Nickle", 0.05, "coin", "nickle.png");
+    public static final Denomination NICKLE = new Denomination("Nickel", 0.05, "coin", "nickle.png");
     public static final Denomination PENNY = new Denomination("Penny", 0.01, "coin", "penny.png");
 
 
     public String toString() {
-        return String.format("Denomination[name=%s, amt=%.2f, form=%s, img=%s]", name, amt, form, img);
+        return String.format("Logic.Denomination[name=%s, amt=%.2f, form=%s, img=%s]", name, amt, form, img);
     }
 }

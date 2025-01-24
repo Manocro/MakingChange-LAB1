@@ -1,14 +1,19 @@
+package GUI;
+
+import Logic.Purse;
+import Logic.Register;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RegisterPanel extends JPanel {
     private final Register register;
     private final JTextField input;
     private final PursePanel changePanel;
-
 
     public RegisterPanel() {
         this.register = new Register();
@@ -28,12 +33,25 @@ public class RegisterPanel extends JPanel {
 
         this.add(inputPanel, BorderLayout.NORTH);
 
-        //CHANGE PANEL SECTION
+        //CHANGE PANEL SECTION WITH SCROLLING FEATURE.
         changePanel = new PursePanel();
-        this.add(changePanel, BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(changePanel);
+        scrollPane.setPreferredSize(new Dimension(600, 250));
+        this.add(scrollPane, BorderLayout.CENTER);
+        //this.add(changePanel, BorderLayout.CENTER); //PREVIOUS VERSION, NO SCROLLING FEATURE
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        //ACTION LISTENER
+        //ACTION LISTENER WITH FUNCTION SO THAT IF ENTER KEY IS PRESSED IT WORKS TOO AS THE BUTTON.
+        InputListener inputListener = new InputListener();
         calculateButton.addActionListener(new InputListener());
+        input.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e){
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    inputListener.actionPerformed(new ActionEvent(input, ActionEvent.ACTION_PERFORMED, null));
+                }
+            }
+        });
     }
 
     //FOR INPUT CHANGES

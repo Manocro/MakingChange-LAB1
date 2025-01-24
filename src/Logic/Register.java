@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package Logic;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,8 +18,8 @@ public class Register {
     );
 
     public Purse makeChange(double amt) {
-        if (amt <= 0) {
-            throw new IllegalArgumentException("Empty Purse");
+        if (amt < 0.005) {
+            throw new IllegalArgumentException("Empty Purse!");
         }
 
         Purse purse = new Purse();
@@ -30,9 +31,11 @@ public class Register {
                 amt = Math.round(amt * 100.0) / 100.0; //JUST TO AVOID FLOATING-POINT ISSUES
             }
         }
-        amt = Math.ceil(amt * 100.0) / 100.0; //ROUND UP TO NEAREST CENT
-        if (amt > 0) {
-            purse.add(Denomination.PENNY, (int) (amt * 100));  // ADD PENNIES TO ROUND UP
+
+        // Round the amount up to the nearest penny if it's at least 0.005
+        amt = Math.ceil(amt * 100.0) / 100.0;
+        if (amt >= 0.01) {  // Only add penny if the remainder is at least 1 cent
+            purse.add(Denomination.PENNY, (int) (amt * 100));
         }
         return purse;
     }
